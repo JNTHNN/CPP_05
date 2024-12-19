@@ -6,7 +6,7 @@
 /*   By: jgasparo <jgasparo@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:18:40 by jgasparo          #+#    #+#             */
-/*   Updated: 2024/12/12 13:17:39 by jgasparo         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:42:21 by jgasparo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@ Bureaucrat::Bureaucrat(const std::string name): _name(name)
 
 Bureaucrat::Bureaucrat(const std::string name, unsigned int grade): _name(name), _grade(grade)
 {
+	if (grade < 1)
+		throw Bureaucrat::GradeTooHighException();
+	if (grade > 150)
+		throw Bureaucrat::GradeTooLowException();
 	return;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& copied)
+Bureaucrat::Bureaucrat(const Bureaucrat& copied): _name(copied._name), _grade(copied._grade)
 {
-	*this = copied;
 	return;
 }
 
@@ -39,10 +42,10 @@ Bureaucrat::~Bureaucrat(void)
 	return;
 }
 
-/*	need to fix -> _name pas assigné a la copie	*/
 Bureaucrat&	Bureaucrat::operator=(const Bureaucrat& base)
 {
-	this->_grade = base._grade;
+	if (this != &base)
+		this->_grade = base._grade;
 	return *this;
 }
 
@@ -60,4 +63,14 @@ const std::string	Bureaucrat::getName(void) const
 unsigned int	Bureaucrat::getGrade(void) const
 {
 	return this->_grade;
+}
+
+const char* Bureaucrat::GradeTooHighException::what() const throw()
+{
+	return "Error: Grade too High.";
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const throw()
+{
+	return "Error: Grade too Low.";
 }

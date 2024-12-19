@@ -6,7 +6,7 @@
 /*   By: jgasparo <jgasparo@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:18:37 by jgasparo          #+#    #+#             */
-/*   Updated: 2024/12/12 12:57:21 by jgasparo         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:03:36 by jgasparo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ class Bureaucrat
 		Bureaucrat(const Bureaucrat& copied);
 		Bureaucrat&	operator=(const Bureaucrat& base);
 		~Bureaucrat();
+
+		class GradeTooHighException: public std::exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
+		class GradeTooLowException: public std::exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
 
 		const std::string	getName(void) const;
 		unsigned int		getGrade(void) const;
