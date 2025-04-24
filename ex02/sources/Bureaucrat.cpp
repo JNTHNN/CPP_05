@@ -5,13 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgasparo <jgasparo@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 11:18:40 by jgasparo          #+#    #+#             */
-/*   Updated: 2025/04/14 19:39:24 by jgasparo         ###   ########.fr       */
+/*   Created: 2025/04/17 12:51:47 by jgasparo          #+#    #+#             */
+/*   Updated: 2025/04/24 10:45:23 by jgasparo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Bureaucrat.hpp"
-#include "../includes/Form.hpp"
+#include "../includes/AForm.hpp"
 
 Bureaucrat::Bureaucrat(void): _name("JohnDoe"), _grade(150)
 {
@@ -92,7 +92,7 @@ void	Bureaucrat::gradeUp(void)
 	std::cout << this->_name << " grade up" << std::endl;
 }
 
-void	Bureaucrat::signForm(Form& f) const
+void	Bureaucrat::signForm(AForm& f) const
 {
     try
     {
@@ -104,4 +104,19 @@ void	Bureaucrat::signForm(Form& f) const
         std::cout << this->_name << " couldn't sign " << f.getName() 
                   << " because " << e.what() << std::endl;
     }
+}
+
+void	Bureaucrat::executeForm(AForm const & form)
+{
+	try
+	{
+		form.execute(*this);
+		std::cout << this->_name << " executed " << form.getName() << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+        std::cout << this->_name << " couldn't execute " << form.getName()
+                  << " because " << e.what() << std::endl;
+	}
+
 }

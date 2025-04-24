@@ -6,109 +6,83 @@
 /*   By: jgasparo <jgasparo@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:18:42 by jgasparo          #+#    #+#             */
-/*   Updated: 2024/12/22 14:28:29 by jgasparo         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:28:34 by jgasparo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Bureaucrat.hpp"
+#include "../includes/Form.hpp"
+#include <iostream>
 
-int	main(void)
+int main(void)
 {
-	std::cout << "--------------------------------------" << std::endl;
+    std::cout << "********** TESTING FORMS **********" << std::endl;
 
-	try
+    // Test 1 : Création d'un formulaire avec des grades valides
+    std::cout << "\n\033[35mTest 1: Création d'un formulaire avec des grades valides\033[0m" << std::endl;
+    try
+    {
+        Form form("Form A", 50, 100);
+        std::cout << form << std::endl;
+        std::cout << "\033[32m==== SUCCESS ====\033[0m" << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << "\033[31mException: " << e.what() << "\033[0m" << std::endl;
+        std::cout << "\033[31m==== FAIL ====\033[0m" << std::endl;
+    }
+
+    // Test 2 : Création d'un formulaire avec un grade de signature trop élevé
+    std::cout << "\n\033[35mTest 2: Création d'un formulaire avec un grade de signature trop élevé (0)\033[0m" << std::endl;
+    try
+    {
+        Form form("Form B", 0, 100);
+        std::cout << form << std::endl;
+        std::cout << "\033[32m==== SUCCESS ====\033[0m" << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << "\033[31mException: " << e.what() << "\033[0m" << std::endl;
+        std::cout << "\033[31m==== FAIL ====\033[0m" << std::endl;
+    }
+
+    // Test 3 : Création d'un formulaire avec un grade d'exécution trop bas
+    std::cout << "\n\033[35mTest 3: Création d'un formulaire avec un grade d'exécution trop bas (151)\033[0m" << std::endl;
+    try
+    {
+        Form form("Form C", 50, 151);
+        std::cout << form << std::endl;
+        std::cout << "\033[32m==== SUCCESS ====\033[0m" << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << "\033[31mException: " << e.what() << "\033[0m" << std::endl;
+        std::cout << "\033[31m==== FAIL ====\033[0m" << std::endl;
+    }
+
+    // Test 4 : Signature d'un formulaire avec un grade insuffisant
+    std::cout << "\n\033[35mTest 4: Signature d'un formulaire avec un grade insuffisant\033[0m" << std::endl;
 	{
-		std::cout << "********** TRY (BASIC) **********" << std::endl;
-		Bureaucrat	boss( "Jeff", 1 );
-		Bureaucrat	employe( "Marcel", 149 );
+        Bureaucrat employee("Employee", 100);
+        Form form("Form D", 50, 50);
 
-		std::cout << boss << std::endl;
-		std::cout << employe << std::endl;
+        std::cout << employee << std::endl;
+        std::cout << form << std::endl;
 
-		std::cout << std::endl << "********** SUCCESS (BASIC) **********" << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << std::endl << "********** CATCH (BASIC) **********" << std::endl;
-		std::cout << e.what() << std::endl;
-	}
-
-	std::cout << "--------------------------------------" << std::endl;
-	
-	try
-	{
-		std::cout << "********** TRY (GRADE = 0) **********" << std::endl;
-		Bureaucrat	fail( "bob", 0 );
-
-		std::cout << fail << std::endl;
-		std::cout << std::endl << "********** SUCCESS (GRADE = 0) **********" << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << std::endl << "********** CATCH (GRADE = 0) **********" << std::endl;
-		std::cout << e.what() << std::endl;
-	}
-
-	std::cout << "--------------------------------------" << std::endl;
-
-	try
-	{
-		std::cout << "********** TRY (GRADE = 151) **********" << std::endl;
-		Bureaucrat	fail( "looser", 151 );
-
-		std::cout << fail << std::endl;
-		std::cout << std::endl << "********** SUCCESS (GRADE = 151) **********" << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << std::endl << "********** CATCH (GRADE = 151) **********" << std::endl;
-		std::cout << e.what() << std::endl << std::endl;
-	}
-	
-	std::cout << "--------------------------------------" << std::endl;
-
-	try
-	{
-		std::cout << "********** TRY (1 GOOD 1 BAD) **********" << std::endl;
-		Bureaucrat	good( "GoodBoy", 19 );
-		Bureaucrat	bad( "BadBoy", -42 );
-
-		std::cout << good << std::endl;
-		std::cout << bad << std::endl;
-		std::cout << std::endl << "********** SUCCESS (1 GOOD 1 BAD) **********" << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << std::endl << "********** CATCH (1 GOOD 1 BAD) **********" << std::endl;
-		std::cout << std::endl << e.what() << std::endl << std::endl;
+        employee.signForm(form);
 	}
 
-	std::cout << "--------------------------------------" << std::endl;
+    // Test 5 : Signature réussie d'un formulaire
+    std::cout << "\n\033[35mTest 5: Signature réussie d'un formulaire\033[0m" << std::endl;
+    {
+        Bureaucrat manager("Manager", 40);
+        Form form("Form E", 50, 50);
 
-	try
-	{
-		std::cout << "********** TRY (GRADE UP GRADE DOWN) **********" << std::endl;
-		Bureaucrat	boss( "Jeff", 1 );
-		Bureaucrat	employe( "Marcel", 149 );
+        std::cout << manager << std::endl;
+        std::cout << form << std::endl;
 
-		std::cout << boss << std::endl;
-		std::cout << employe << std::endl;
-
-		boss.gradeDown();
-		std::cout << boss << std::endl;
-		boss.gradeUp();
-		std::cout << boss << std::endl;
-		employe.gradeDown();
-		std::cout << employe << std::endl;
-		std::cout << std::endl << "********** SUCCESS (GRADE UP GRADE DOWN) **********" << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << std::endl << "********** CATCH (GRADE UP GRADE DOWN) **********" << std::endl;
-		std::cout << std::endl << e.what() << std::endl;
-	}
-	
-	std::cout << "--------------------------------------" << std::endl;
-	
-	return (0);
+        manager.signForm(form);
+        std::cout << form << std::endl;
+    }
+    return 0;
 }

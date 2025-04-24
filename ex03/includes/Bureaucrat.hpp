@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgasparo <jgasparo@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 11:18:37 by jgasparo          #+#    #+#             */
-/*   Updated: 2025/04/10 13:37:31 by jgasparo         ###   ########.fr       */
+/*   Created: 2025/04/14 23:30:13 by jgasparo          #+#    #+#             */
+/*   Updated: 2025/04/19 12:00:21 by jgasparo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <iostream>
 #include <string>
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -48,7 +48,8 @@ class Bureaucrat
 
 		void	gradeUp();
 		void	gradeDown();
-		void	signForm(Form& f) const;
+		void	signForm(AForm& f) const;
+		void	executeForm(const AForm& form);
 };
 
 std::ostream&	operator<<(std::ostream& o, Bureaucrat& b);
