@@ -26,7 +26,7 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string target): AForm("Robot
 	return ;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& copied): AForm("RobotomyRequestForm", 72, 45)
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& copied): AForm(copied)
 {
 	this->_target = copied._target;
 	return ;
@@ -40,7 +40,10 @@ RobotomyRequestForm::~RobotomyRequestForm(void)
 RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& base)
 {
 	if (this != &base)
+	{
+		AForm::operator=(base);
 		this->_target = base._target;
+	}
 	return *this;
 }
 
