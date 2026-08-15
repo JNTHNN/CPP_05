@@ -85,7 +85,7 @@ AForm&	AForm::operator=(const AForm& base)
     return *this;
 }
 
-std::ostream&	operator<<(std::ostream& o, AForm& f)
+std::ostream&	operator<<(std::ostream& o, const AForm& f)
 {
     o << "Form : " << f.getName();
         if (f.isSigned())

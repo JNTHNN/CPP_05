@@ -57,6 +57,6 @@ class Form
 		void						beSigned(const Bureaucrat& b);
 };
 
-std::ostream&	operator<<(std::ostream& o, Form& f);
+std::ostream&	operator<<(std::ostream& o, const Form& f);
 
 #endif

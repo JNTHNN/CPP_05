@@ -50,7 +50,7 @@ Bureaucrat&	Bureaucrat::operator=(const Bureaucrat& base)
 	return *this;
 }
 
-std::ostream&	operator<<(std::ostream& o, Bureaucrat& b)
+std::ostream&	operator<<(std::ostream& o, const Bureaucrat& b)
 {
 	o << b.getName() << ", bureaucrat grade " << b.getGrade() << ".";
 	return o;

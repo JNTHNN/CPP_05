@@ -26,7 +26,7 @@ PresidentialPardonForm::PresidentialPardonForm(const std::string target): AForm(
 	return ;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& copied): AForm("PreseidentialPardonForm", 25, 5)
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& copied): AForm(copied)
 {
 	this->_target = copied._target;
 	return ;
@@ -40,7 +40,10 @@ PresidentialPardonForm::~PresidentialPardonForm(void)
 PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm& base)
 {
 	if (this != &base)
+	{
+		AForm::operator=(base);
 		this->_target = base._target;
+	}
 	return *this;
 }
 
